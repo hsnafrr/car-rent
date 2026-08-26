@@ -1,0 +1,25 @@
+{
+  "name": "morfosa-transport",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "assets": "node tools/build-assets.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "next": "^15.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "sharp": "^0.34.2",
+    "typescript": "^5.8.3"
+  }
+}

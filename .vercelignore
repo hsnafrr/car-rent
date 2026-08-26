@@ -1,0 +1,9 @@
+# Video and image masters. They are only inputs to `npm run assets`, which is
+# not part of the production build, so uploading them wastes build time.
+assets-src/
+
+# Local tooling and docs, not needed to build or serve the site.
+.claude/
+docs/
+QA-CHECKLIST.md
+ASSETS.md

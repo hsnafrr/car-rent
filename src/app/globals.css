@@ -1,0 +1,507 @@
+/* ==========================================================================
+   Morfosa Transport design foundation
+
+   Palette is warm neutral rather than blue grey: carbon black, warm off white,
+   graphite, muted stone, a deep forest accent, and a single warm amber reserved
+   for booking actions. There is no pure white page surface anywhere.
+
+   Contrast, measured against the surface each pair is actually used on:
+     text        #101109 on #F2EEE5   19.2:1
+     text-muted  #5E594D on #F2EEE5    6.0:1
+     text-muted  #5E594D on #E9E3D6    5.5:1   (raised surface)
+     text-muted  #5E594D on #DED6C4    4.8:1   (sunk surface, worst case)
+     amber-ink   #8A5510 on #F2EEE5    5.4:1
+     ink text    #101109 on #C0791E    5.4:1   (amber buttons)
+     on-dark     #F2EEE5 on #101109   19.2:1
+     on-dark-mut #A8A296 on #101109    7.5:1
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --carbon: #101109;
+  --carbon-deep: #0a0b06;
+  --graphite: #1a1c15;
+  --graphite-soft: #24261e;
+  --surface: #f2eee5;
+  --surface-raised: #e9e3d6;
+  --surface-sunk: #ded6c4;
+
+  /* Lines */
+  --line: #d3cbb9;
+  --line-strong: #bdb39d;
+  --line-dark: #2e3128;
+  --line-dark-strong: #414539;
+
+  /* Text */
+  --text: #101109;
+  --text-muted: #5e594d;
+  --text-on-dark: #f2eee5;
+  --text-on-dark-muted: #a8a296;
+
+  /* Accents */
+  --forest: #3b4a34;
+  --forest-light: #55684a;
+  --amber: #c0791e;
+  --amber-strong: #a96513;
+  --amber-ink: #8a5510;
+  --amber-on-dark: #e0a24a;
+
+  --danger: #8f2c17;
+  --danger-on-dark: #e58b73;
+
+  /* Type scale */
+  --step--1: clamp(0.8125rem, 0.795rem + 0.09vw, 0.875rem);
+  --step-0: clamp(1rem, 0.973rem + 0.13vw, 1.0625rem);
+  --step-1: clamp(1.0625rem, 1.005rem + 0.29vw, 1.25rem);
+  --step-2: clamp(1.25rem, 1.13rem + 0.6vw, 1.625rem);
+  --step-3: clamp(1.625rem, 1.4rem + 1.12vw, 2.375rem);
+  --step-4: clamp(2rem, 1.58rem + 2.1vw, 3.375rem);
+  --step-5: clamp(2.5rem, 1.72rem + 3.9vw, 5rem);
+
+  /* Spacing */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 8.5rem;
+
+  /* Restrained corners. Nothing here becomes a giant pill. */
+  --radius-xs: 4px;
+  --radius-s: 6px;
+  --radius-m: 8px;
+  --radius-l: 12px;
+
+  --container: 74rem;
+  --container-narrow: 46rem;
+
+  --header-height: 4.25rem;
+
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+}
+
+/* ==========================================================================
+   Dark theme
+
+   Every token name is identical to the light theme, so no component needs to
+   know which theme is active. Only the values change.
+
+   The two selectors below carry the same values on purpose. The first wins when
+   the visitor has made an explicit choice, the second covers everyone who has
+   not, including visitors with JavaScript disabled. They are generated together
+   in tools, so keep them in sync if you edit either one.
+
+   Roles worth understanding:
+     --surface        the page. Dark, warm, never pure black.
+     --carbon         the emphasis sections. In light theme these invert to near
+                      black. In dark theme they go a step darker than the page,
+                      so the rhythm of the layout survives.
+     --text-on-dark   text sitting on --carbon. Identical to --text here,
+                      because in dark theme everything is already on dark.
+   ========================================================================== */
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --carbon: #0a0b06;
+  --carbon-deep: #060702;
+  --graphite: #24261c;
+  --graphite-soft: #2e3125;
+  --surface: #14150f;
+  --surface-raised: #1c1e15;
+  --surface-sunk: #24261c;
+
+  /* Lines */
+  --line: #2b2d23;
+  --line-strong: #3f4336;
+  --line-dark: #22241a;
+  --line-dark-strong: #33362a;
+
+  /* Text */
+  --text: #f2eee5;
+  --text-muted: #a8a296;
+  --text-on-dark: #f2eee5;
+  --text-on-dark-muted: #a8a296;
+
+  /* Accents */
+  --forest: #8aa47a;
+  --forest-light: #a3b995;
+  --amber: #d8912f;
+  --amber-strong: #e5a54c;
+  --amber-ink: #e0a24a;
+  --amber-on-dark: #e0a24a;
+  --danger: #e58b73;
+  --danger-on-dark: #e58b73;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    /* Surfaces */
+    --carbon: #0a0b06;
+    --carbon-deep: #060702;
+    --graphite: #24261c;
+    --graphite-soft: #2e3125;
+    --surface: #14150f;
+    --surface-raised: #1c1e15;
+    --surface-sunk: #24261c;
+
+    /* Lines */
+    --line: #2b2d23;
+    --line-strong: #3f4336;
+    --line-dark: #22241a;
+    --line-dark-strong: #33362a;
+
+    /* Text */
+    --text: #f2eee5;
+    --text-muted: #a8a296;
+    --text-on-dark: #f2eee5;
+    --text-on-dark-muted: #a8a296;
+
+    /* Accents */
+    --forest: #8aa47a;
+    --forest-light: #a3b995;
+    --amber: #d8912f;
+    --amber-strong: #e5a54c;
+    --amber-ink: #e0a24a;
+    --amber-on-dark: #e0a24a;
+    --danger: #e58b73;
+    --danger-on-dark: #e58b73;
+  }
+}
+
+/*
+ * Theme switching is atomic. Buttons, inputs, and nav links each carry their own
+ * colour transitions for hover, and without this they would all cross fade at
+ * different speeds while untransitioned surfaces snapped, which reads as a
+ * glitch rather than a change. The attribute is set for a single frame while the
+ * theme flips.
+ */
+:root[data-theme-switching] *,
+:root[data-theme-switching] *::before,
+:root[data-theme-switching] *::after {
+  transition: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Reset
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /*
+   * scroll-behavior is deliberately NOT set to smooth. CSS smooth scrolling
+   * animates the scroll position in a way that fights ScrollTrigger's scrubbed
+   * hero timeline. Anchor scrolling is handled by SmoothAnchors with GSAP
+   * instead, which stays in step with the scrub and can be interrupted by a
+   * real gesture. scroll-padding-top still covers focus and hash landings that
+   * bypass the handler.
+   */
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+body {
+  background-color: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.6;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img,
+picture,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   Focus. Amber clears 3:1 against both the light and the dark surfaces, so one
+   ring works everywhere. Focus is never removed, only restyled.
+   -------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+section:focus,
+section:focus-visible {
+  outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   Layout helpers
+   -------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: clamp(1.125rem, 4vw, 2.5rem);
+}
+
+.section {
+  padding-block: clamp(var(--space-2xl), 11vw, var(--space-3xl));
+}
+
+.section--tight {
+  padding-block: clamp(var(--space-xl), 7vw, var(--space-2xl));
+}
+
+.section--dark {
+  background-color: var(--carbon);
+  color: var(--text-on-dark);
+}
+
+.section--raised {
+  background-color: var(--surface-raised);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Shared type roles
+   -------------------------------------------------------------------------- */
+
+.eyebrow {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.section--dark .eyebrow {
+  color: var(--text-on-dark-muted);
+}
+
+.display {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 46ch;
+}
+
+.section--dark .lede {
+  color: var(--text-on-dark-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons. Minimum target 44px on every variant.
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 44px;
+  padding: 0.6875rem 1.375rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-s);
+  font-size: var(--step-0);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  text-align: center;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.btn--primary {
+  background-color: var(--amber);
+  color: var(--carbon);
+  border-color: var(--amber);
+}
+
+.btn--primary:hover {
+  background-color: var(--amber-strong);
+  border-color: var(--amber-strong);
+  color: var(--surface);
+}
+
+.btn--secondary {
+  background-color: transparent;
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.btn--secondary:hover {
+  border-color: var(--text);
+  background-color: var(--surface-raised);
+}
+
+.section--dark .btn--secondary,
+.btn--secondary-on-dark {
+  border-color: var(--line-dark-strong);
+  color: var(--text-on-dark);
+}
+
+.section--dark .btn--secondary:hover,
+.btn--secondary-on-dark:hover {
+  border-color: var(--text-on-dark);
+  background-color: var(--graphite);
+}
+
+.btn--quiet {
+  min-height: 44px;
+  padding-inline: 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line-strong);
+  border-radius: 0;
+  color: var(--text);
+  align-self: flex-start;
+}
+
+.btn--quiet:hover {
+  border-bottom-color: var(--amber-ink);
+  color: var(--amber-ink);
+}
+
+.btn[disabled],
+.btn[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Inline text link used inside prose. */
+.textLink {
+  color: var(--amber-ink);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+.textLink:hover {
+  text-decoration-thickness: 2px;
+}
+
+.section--dark .textLink {
+  color: var(--amber-on-dark);
+}
+
+/* --------------------------------------------------------------------------
+   Motion. Every scroll animation is additive, so removing it leaves the page
+   fully readable. Elements that GSAP will animate start hidden only when the
+   document is marked as motion-capable by the client, which keeps content
+   visible if JavaScript never runs.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Skip link. Visible the moment it receives focus.
+   -------------------------------------------------------------------------- */
+
+.skipLink {
+  position: absolute;
+  top: var(--space-2xs);
+  left: var(--space-2xs);
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--amber);
+  color: var(--carbon);
+  font-weight: 600;
+  border-radius: var(--radius-s);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skipLink:focus-visible {
+  transform: translateY(0);
+}

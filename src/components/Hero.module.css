@@ -1,0 +1,258 @@
+/* --------------------------------------------------------------------------
+   Hero
+
+   Two layouts share one markup tree. Which one applies is decided by
+   BootScript before the first paint, and is carried on the document
+   element so the very first frame the browser paints is already correct.
+
+   default                 no attribute. Reduced motion, Save Data, very low
+                           core count devices, a failed video, and the
+                           no JavaScript path all land here. Normal flow, every
+                           line of copy visible at once, no scrub.
+
+   data-hero-mode          "cinematic". A tall scroll area with a sticky stage.
+                           The beats stack in one grid cell and GSAP reveals
+                           them in turn while the same scroll drives the
+                           video playhead.
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  background-color: var(--carbon);
+  color: var(--text-on-dark);
+}
+
+:global(html[data-hero-mode='cinematic']) .hero {
+  /* Within the 300vh to 400vh band asked for. Enough travel that each beat gets
+     roughly a screen of scroll without the section feeling endless. */
+  height: 360svh;
+}
+
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-areas: 'stage';
+  place-items: stretch;
+  overflow: hidden;
+  min-height: 100svh;
+}
+
+:global(html[data-hero-mode='cinematic']) .hero .stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+}
+
+.media,
+.content {
+  grid-area: stage;
+}
+
+.media {
+  position: relative;
+  overflow: hidden;
+}
+
+.mediaLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+.video {
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out);
+}
+
+.videoReady {
+  opacity: 1;
+}
+
+/* Legibility scrim. Weighted to the bottom left where the copy sits, and kept
+   off the upper right so the sky and the vehicle stay clean. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(16, 17, 9, 0.9) 0%,
+      rgba(16, 17, 9, 0.62) 26%,
+      rgba(16, 17, 9, 0.18) 52%,
+      rgba(16, 17, 9, 0) 74%
+    ),
+    linear-gradient(to right, rgba(16, 17, 9, 0.55) 0%, rgba(16, 17, 9, 0) 58%);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  padding-block: clamp(var(--space-xl), 9vh, var(--space-2xl));
+  padding-top: calc(var(--header-height) + var(--space-l));
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-m);
+}
+
+/* Cinematic: every beat occupies the same cell so they cross fade in place. */
+:global(html[data-hero-mode='cinematic']) .hero .copy {
+  grid-template-areas: 'beat';
+  gap: 0;
+  min-height: 15rem;
+  align-content: end;
+}
+
+:global(html[data-hero-mode='cinematic']) .hero .beat {
+  grid-area: beat;
+  align-self: end;
+}
+
+/* Only the opening beat is visible before GSAP takes over, which keeps the
+   headline painted immediately and keeps the rest out of the tab order. */
+:global(html[data-hero-mode='cinematic']) .hero .beat:not(:first-child) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.beat {
+  max-width: 42rem;
+}
+
+.brandLine {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber-on-dark);
+  margin-bottom: var(--space-s);
+}
+
+.headline {
+  font-size: var(--step-5);
+  color: var(--text-on-dark);
+  max-width: 16ch;
+}
+
+.supporting {
+  font-size: var(--step-2);
+  line-height: 1.4;
+  color: var(--text-on-dark);
+  max-width: 30ch;
+  font-weight: 400;
+}
+
+.closing {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--step-3);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  max-width: 18ch;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-m);
+}
+
+/* Static hero keeps the calls to action directly under the copy. */
+:global(html:not([data-hero-mode='cinematic'])) .hero .closing {
+  margin-top: var(--space-2xs);
+}
+
+/* --------------------------------------------------------------------------
+   Scroll cue. A thin rule and a label. No bounce, no arrow, no loop.
+   -------------------------------------------------------------------------- */
+
+.scrollHint {
+  position: absolute;
+  right: clamp(1.125rem, 4vw, 2.5rem);
+  bottom: clamp(var(--space-l), 8vh, var(--space-xl));
+  z-index: 3;
+  display: none;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+}
+
+.scrollRule {
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  background-color: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   Loading readout. Reports real buffered progress, not a fake skeleton.
+   -------------------------------------------------------------------------- */
+
+.loading {
+  position: absolute;
+  left: clamp(1.125rem, 4vw, 2.5rem);
+  bottom: clamp(var(--space-s), 3vh, var(--space-m));
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+}
+
+.loadingTrack {
+  display: block;
+  width: 7rem;
+  height: 2px;
+  background-color: var(--line-dark-strong);
+  overflow: hidden;
+}
+
+.loadingBar {
+  display: block;
+  height: 100%;
+  background-color: var(--amber);
+  transition: width 220ms var(--ease-out);
+}
+
+@media (min-width: 48rem) {
+  .scrollHint {
+    display: flex;
+  }
+
+  :global(html[data-hero-mode='cinematic']) .hero .copy {
+    min-height: 17rem;
+  }
+}
+
+/* Short landscape viewports, typically a phone turned sideways. Keep the copy
+   from colliding with the stage edges. */
+@media (max-height: 34rem) and (orientation: landscape) {
+  .headline {
+    font-size: var(--step-3);
+  }
+
+  .supporting {
+    font-size: var(--step-1);
+  }
+
+  :global(html[data-hero-mode='cinematic']) .hero .copy {
+    min-height: 11rem;
+  }
+
+  .scrollHint {
+    display: none;
+  }
+}

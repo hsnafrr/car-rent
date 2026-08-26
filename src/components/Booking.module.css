@@ -1,0 +1,318 @@
+.booking {
+  background-color: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.layout {
+  display: grid;
+  gap: clamp(var(--space-l), 5vw, var(--space-2xl));
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-s);
+  align-content: start;
+}
+
+.title {
+  font-size: var(--step-4);
+  max-width: 12ch;
+}
+
+.contactAside {
+  display: grid;
+  gap: var(--space-s);
+  margin-top: var(--space-s);
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--line);
+}
+
+.contactAside dt {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.contactAside dd {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+/* These are the only content of their row, so they are not covered by the
+   inline link exception. Give them a full size target. */
+.contactAside dd a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.form {
+  display: grid;
+  gap: var(--space-m);
+  align-content: start;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-m);
+}
+
+.field {
+  display: grid;
+  gap: 0.375rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.hint {
+  font-size: var(--step--1);
+  color: var(--text-muted);
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.6875rem 0.875rem;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-s);
+  color: var(--text);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.input:hover {
+  border-color: var(--text-muted);
+}
+
+.input:focus {
+  background-color: var(--surface);
+  border-color: var(--text);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--danger);
+  border-width: 2px;
+}
+
+.textarea {
+  min-height: 7rem;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.error {
+  display: flex;
+  gap: 0.4rem;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--danger);
+}
+
+.error::before {
+  content: '!';
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.15rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.hiddenSummary {
+  display: none;
+}
+
+.errorSummary {
+  padding: var(--space-m);
+  border: 2px solid var(--danger);
+  border-radius: var(--radius-s);
+  background-color: var(--surface-raised);
+}
+
+.errorSummary:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.errorSummaryTitle {
+  font-size: var(--step-1);
+  color: var(--danger);
+  margin-bottom: var(--space-2xs);
+}
+
+.errorSummaryList {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.errorSummaryLink {
+  padding: 0.25rem 0;
+  background: none;
+  border: none;
+  font-size: var(--step--1);
+  text-align: left;
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.errorSummaryLink:hover {
+  color: var(--danger);
+}
+
+/* -------------------------------------------------------------------------- */
+
+.estimate {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-m);
+  background-color: var(--carbon);
+  color: var(--text-on-dark);
+  border-radius: var(--radius-m);
+}
+
+.estimateRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2xs);
+}
+
+.estimateLabel {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+}
+
+.estimateValue {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--step-3);
+  line-height: 1.1;
+  color: var(--amber-on-dark);
+}
+
+.estimateWorking {
+  font-size: var(--step--1);
+  color: var(--text-on-dark);
+}
+
+.estimateDisclaimer {
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--text-on-dark-muted);
+  max-width: 56ch;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.agreementWrap {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.agreement {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-xs);
+  align-items: start;
+  /* Keeps the whole row a comfortable target without turning it into a card. */
+  padding: 0.5rem 0;
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.checkbox {
+  /* WCAG 2.2 target size minimum is 24px. The surrounding label is a larger
+     hit area, but the control itself clears the bar on its own. */
+  width: 24px;
+  height: 24px;
+  margin: 0.1rem 0 0;
+  accent-color: var(--forest);
+  cursor: pointer;
+}
+
+.submit {
+  justify-self: start;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.status {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-m);
+  border: 1px solid var(--forest);
+  border-left-width: 3px;
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+  background-color: var(--surface-raised);
+}
+
+.statusTitle {
+  font-size: var(--step-1);
+  font-weight: 600;
+  color: var(--forest);
+}
+
+.statusBody {
+  font-size: var(--step--1);
+  color: var(--text);
+  max-width: 56ch;
+}
+
+.statusLink {
+  justify-self: start;
+  margin-top: var(--space-2xs);
+}
+
+/* -------------------------------------------------------------------------- */
+
+@media (min-width: 40rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .spanHalf {
+    grid-column: span 1;
+  }
+
+  .spanFull {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+  }
+}

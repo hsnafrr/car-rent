@@ -1,0 +1,188 @@
+.fleet {
+  background-color: var(--surface);
+}
+
+.header {
+  display: grid;
+  gap: var(--space-s);
+  max-width: 44rem;
+  margin-bottom: clamp(var(--space-l), 6vw, var(--space-2xl));
+}
+
+.title {
+  font-size: var(--step-4);
+  max-width: 18ch;
+}
+
+.stages {
+  display: grid;
+  /* Perspective lives on the parent so the visual can take a small Y rotation
+     without every stage needing its own 3D context. */
+  perspective: 1400px;
+}
+
+.stage {
+  padding-block: clamp(var(--space-l), 7vw, var(--space-2xl));
+  border-top: 1px solid var(--line);
+}
+
+.stage:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.stageInner {
+  display: grid;
+  gap: clamp(var(--space-m), 4vw, var(--space-xl));
+  align-items: center;
+}
+
+.visualColumn {
+  min-width: 0;
+}
+
+.visual {
+  position: relative;
+  /* Matches the intrinsic size of every card film, so the six stages share one
+     ratio and nothing shifts as they load. */
+  aspect-ratio: 1088 / 832;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  /* The films are shot on a black studio floor, so the panel sits behind them
+     in the same key and there is no visible seam while they load. */
+  background-color: var(--carbon);
+  transform-style: preserve-3d;
+}
+
+.cardLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The still is the base layer. The film fades in over it once it is actually
+   playing, so a refused autoplay or a failed fetch simply leaves the still. */
+.cardVideo {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.cardVideoOn {
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.info {
+  display: grid;
+  gap: var(--space-xs);
+  align-content: start;
+  min-width: 0;
+}
+
+.category {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.name {
+  font-size: var(--step-3);
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+}
+
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+  font-size: var(--step-2);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.priceNote {
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.summary {
+  color: var(--text-muted);
+  max-width: 44ch;
+  margin-top: var(--space-3xs);
+}
+
+.specs {
+  display: grid;
+  gap: 0;
+  margin: var(--space-2xs) 0 0;
+  border-top: 1px solid var(--line);
+  max-width: 34rem;
+}
+
+.spec {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: var(--space-s);
+  padding-block: 0.6875rem;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--step--1);
+}
+
+.spec dt {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.spec dd {
+  margin: 0;
+  color: var(--text);
+}
+
+.bookButton {
+  justify-self: start;
+  margin-top: var(--space-s);
+}
+
+.notice {
+  max-width: 62ch;
+  margin-top: clamp(var(--space-l), 6vw, var(--space-2xl));
+  padding: var(--space-m);
+  border-left: 3px solid var(--forest);
+  background-color: var(--surface-raised);
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+  font-size: var(--step-0);
+  color: var(--text);
+}
+
+@media (max-width: 30rem) {
+  .spec {
+    grid-template-columns: 1fr;
+    gap: var(--space-3xs);
+  }
+}
+
+@media (min-width: 64rem) {
+  .stageInner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  /* Alternating composition. The visual moves to the second column on every
+     other stage, which changes the rhythm without changing the structure. */
+  .stageMirrored .visualColumn {
+    order: 2;
+  }
+
+  .stageMirrored .info {
+    order: 1;
+  }
+}

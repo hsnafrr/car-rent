@@ -1,0 +1,23 @@
+.switcher {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  padding-inline: 0.5rem;
+  border: 1px solid var(--line-dark-strong);
+  border-radius: var(--radius-s);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.switcher:hover {
+  border-color: currentColor;
+  color: var(--amber-on-dark);
+}

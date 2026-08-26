@@ -1,0 +1,114 @@
+.layout {
+  display: grid;
+  gap: clamp(var(--space-l), 5vw, var(--space-2xl));
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-s);
+  align-content: start;
+}
+
+.title {
+  font-size: var(--step-4);
+  max-width: 13ch;
+  color: var(--text-on-dark);
+}
+
+.channels {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--line-dark);
+}
+
+.channel {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-s);
+  align-items: center;
+  padding-block: var(--space-s);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.icon {
+  color: var(--text-on-dark-muted);
+}
+
+.channelBody {
+  display: grid;
+  gap: 0.05rem;
+  min-width: 0;
+}
+
+.channelLabel {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+}
+
+.channelValue {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--step-1);
+  font-weight: 500;
+  color: var(--text-on-dark);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+a.channelValue {
+  text-decoration: underline;
+  text-decoration-color: var(--line-dark-strong);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    text-decoration-color var(--duration-fast) var(--ease-out);
+}
+
+a.channelValue:hover {
+  color: var(--amber-on-dark);
+  text-decoration-color: var(--amber-on-dark);
+}
+
+.cta {
+  display: grid;
+  gap: var(--space-m);
+  align-items: center;
+  margin-top: clamp(var(--space-l), 5vw, var(--space-xl));
+  padding-top: var(--space-l);
+  border-top: 1px solid var(--line-dark);
+}
+
+.ctaText {
+  font-size: var(--step-1);
+  color: var(--text-on-dark-muted);
+  max-width: 46ch;
+}
+
+.cta .btn,
+.cta > a {
+  justify-self: start;
+}
+
+@media (min-width: 48rem) {
+  .channels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-xl);
+  }
+
+  .cta {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: start;
+  }
+}

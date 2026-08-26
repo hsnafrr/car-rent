@@ -1,0 +1,97 @@
+.page {
+  padding-block: clamp(var(--space-2xl), 10vw, var(--space-3xl));
+  background-color: var(--surface);
+}
+
+.inner {
+  max-width: var(--container-narrow);
+}
+
+.title {
+  font-size: var(--step-4);
+  margin-top: var(--space-2xs);
+}
+
+.updated {
+  margin-top: var(--space-s);
+  font-size: var(--step--1);
+  color: var(--text-muted);
+}
+
+.intro {
+  margin-top: var(--space-m);
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.body {
+  margin-top: clamp(var(--space-l), 5vw, var(--space-xl));
+}
+
+.body h2 {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--line);
+  font-size: var(--step-2);
+}
+
+.body h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.body h3 {
+  margin-top: var(--space-m);
+  font-size: var(--step-1);
+}
+
+.body p {
+  margin-top: var(--space-s);
+  line-height: 1.65;
+}
+
+.body ul {
+  margin-top: var(--space-s);
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.body li {
+  position: relative;
+  padding-left: 1.4rem;
+  line-height: 1.6;
+}
+
+.body li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.5rem;
+  height: 1px;
+  background-color: var(--line-strong);
+}
+
+.body dl {
+  margin-top: var(--space-s);
+  display: grid;
+  gap: var(--space-s);
+}
+
+.body dt {
+  font-weight: 600;
+}
+
+.body dd {
+  margin: 0.15rem 0 0;
+  color: var(--text-muted);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: var(--space-xl);
+}

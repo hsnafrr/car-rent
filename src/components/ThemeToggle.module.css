@@ -1,0 +1,19 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 1px solid var(--line-dark-strong);
+  border-radius: var(--radius-s);
+  color: inherit;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.toggle:hover {
+  border-color: currentColor;
+  color: var(--amber-on-dark);
+}

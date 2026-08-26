@@ -1,0 +1,98 @@
+.faq {
+  background-color: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.layout {
+  display: grid;
+  gap: clamp(var(--space-l), 5vw, var(--space-2xl));
+}
+
+.header {
+  display: grid;
+  gap: var(--space-s);
+  align-content: start;
+}
+
+.title {
+  font-size: var(--step-4);
+  max-width: 12ch;
+}
+
+.list {
+  border-top: 1px solid var(--line-strong);
+}
+
+.item {
+  border-bottom: 1px solid var(--line);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+  min-height: 60px;
+  padding-block: var(--space-s);
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+/* Remove the default disclosure triangle in every engine. */
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary::marker {
+  content: '';
+}
+
+.summary:hover {
+  color: var(--amber-ink);
+}
+
+.summary:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+.question {
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.marker {
+  flex: none;
+  color: var(--text-muted);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+/* The vertical stroke collapses, turning the plus into a minus. A single small
+   transform, nothing more. */
+.item[open] .marker {
+  transform: rotate(90deg);
+}
+
+.item[open] .marker [data-plus-stem] {
+  opacity: 0;
+}
+
+.marker [data-plus-stem] {
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.panel {
+  padding-bottom: var(--space-m);
+  max-width: 62ch;
+  color: var(--text-muted);
+}
+
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+  }
+}

@@ -1,0 +1,209 @@
+.header {
+  /*
+   * Fixed rather than sticky. A sticky header participates in normal flow and
+   * would push the hero down by its own height, leaving a band of page
+   * background above a hero that is meant to be full bleed.
+   */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: transparent;
+  color: var(--text-on-dark);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+/* Solid once the page leaves the top of the hero, so the bar never floats over
+   content it cannot be read against. */
+.solid {
+  background-color: var(--carbon);
+  border-bottom-color: var(--line-dark);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+  min-height: var(--header-height);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 44px;
+  padding-block: 0.4rem;
+  text-decoration: none;
+  font-size: var(--step-0);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* The supplied artwork is on its own dark navy bed with no transparency, so it
+   is presented as a deliberate tile rather than pretending to be a cutout. */
+.mark {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-s);
+}
+
+.wordmarkText {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+}
+
+.wordmarkStrong {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.wordmarkLight {
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: var(--step--1);
+  color: var(--text-on-dark-muted);
+}
+
+.desktopNav {
+  display: none;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.4vw, 1.375rem);
+  margin: 0;
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.25rem;
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--text-on-dark-muted);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0.25rem;
+  right: 0.25rem;
+  bottom: 0.75rem;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.navLink:hover {
+  color: var(--text-on-dark);
+}
+
+.navLink[aria-current='true'] {
+  color: var(--text-on-dark);
+}
+
+.navLink[aria-current='true']::after {
+  opacity: 1;
+  background-color: var(--amber);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.headerCta {
+  display: none;
+  padding-inline: 1.125rem;
+  font-size: var(--step--1);
+}
+
+.menuToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 1px solid var(--line-dark-strong);
+  border-radius: var(--radius-s);
+  color: inherit;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.menuToggle:hover {
+  border-color: var(--text-on-dark);
+}
+
+.mobileMenu {
+  background-color: var(--carbon);
+  border-top: 1px solid var(--line-dark);
+  padding-block: var(--space-s) var(--space-m);
+}
+
+.mobileMenu[hidden] {
+  display: none;
+}
+
+.mobileList {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding-inline: 0.25rem;
+  font-size: var(--step-1);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text-on-dark-muted);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.mobileLink[aria-current='true'] {
+  color: var(--text-on-dark);
+  border-bottom-color: var(--amber);
+}
+
+.mobileCta {
+  width: 100%;
+  margin-top: var(--space-m);
+}
+
+@media (min-width: 62rem) {
+  .desktopNav {
+    display: block;
+  }
+
+  .headerCta {
+    display: inline-flex;
+  }
+
+  .menuToggle {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: none;
+  }
+}

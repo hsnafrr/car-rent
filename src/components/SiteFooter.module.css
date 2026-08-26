@@ -1,0 +1,96 @@
+.footer {
+  background-color: var(--carbon-deep);
+  color: var(--text-on-dark);
+  padding-block: clamp(var(--space-xl), 7vw, var(--space-2xl)) var(--space-l);
+  border-top: 1px solid var(--line-dark);
+}
+
+.top {
+  display: grid;
+  gap: clamp(var(--space-l), 5vw, var(--space-2xl));
+}
+
+.brand {
+  display: grid;
+  gap: var(--space-s);
+  align-content: start;
+  justify-items: start;
+}
+
+/* The lockup carries the wordmark and the establishment date already, so the
+   footer does not repeat them in text. */
+.logoLockup {
+  width: 132px;
+  height: auto;
+  border-radius: var(--radius-m);
+}
+
+.tagline {
+  color: var(--text-on-dark-muted);
+  max-width: 34ch;
+}
+
+.nav {
+  display: grid;
+  gap: var(--space-l);
+}
+
+.navGroup {
+  display: grid;
+  gap: var(--space-2xs);
+  align-content: start;
+}
+
+.navTitle {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+}
+
+.navList {
+  display: grid;
+  gap: 0;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--step-0);
+  color: var(--text-on-dark);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.navLink:hover {
+  color: var(--amber-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-m);
+  justify-content: space-between;
+  margin-top: clamp(var(--space-l), 5vw, var(--space-xl));
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--line-dark);
+  font-size: var(--step--1);
+  color: var(--text-on-dark-muted);
+}
+
+@media (min-width: 40rem) {
+  .nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-m);
+  }
+}
+
+@media (min-width: 64rem) {
+  .top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  }
+}

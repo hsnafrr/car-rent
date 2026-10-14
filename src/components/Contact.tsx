@@ -16,14 +16,18 @@ export function Contact({ dict }: { dict: Dictionary }) {
       href: primaryWhatsapp(enquiry),
       external: true,
     },
-    {
-      key: 'alternative',
-      icon: <WhatsAppIcon className={styles.icon} />,
-      label: dict.contact.alternativeWhatsapp,
-      value: company.whatsappAlternativeDisplay,
-      href: alternativeWhatsapp(enquiry),
-      external: true,
-    },
+    ...(company.whatsappAlternative
+      ? [
+          {
+            key: 'alternative',
+            icon: <WhatsAppIcon className={styles.icon} />,
+            label: dict.contact.alternativeWhatsapp,
+            value: company.whatsappAlternativeDisplay,
+            href: alternativeWhatsapp(enquiry) as string | null,
+            external: true,
+          },
+        ]
+      : []),
     {
       key: 'email',
       icon: <MailIcon className={styles.icon} />,

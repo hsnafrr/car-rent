@@ -316,3 +316,41 @@
     align-items: start;
   }
 }
+
+/* Embedded Apps Script booking form */
+.frame {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l, 16px);
+  background: #0b1226;
+}
+
+.frame:focus {
+  outline: none;
+}
+
+.frameEl {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+}
+
+.frameLoading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-m);
+  color: rgba(244, 246, 251, 0.78);
+  font-size: var(--step-0);
+  text-align: center;
+  pointer-events: none;
+}
+
+.frameFallback {
+  margin-top: var(--space-s);
+  font-size: var(--step--1);
+}

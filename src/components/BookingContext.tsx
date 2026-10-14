@@ -19,16 +19,16 @@ interface BookingContextValue {
   /** Preselects a vehicle, then moves focus and scroll to the booking form. */
   bookVehicle: (slug: VehicleSlug) => void;
   /** The booking form registers its vehicle select here so focus can land on it. */
-  registerVehicleField: (element: HTMLSelectElement | null) => void;
+  registerVehicleField: (element: HTMLElement | null) => void;
 }
 
 const BookingContext = createContext<BookingContextValue | null>(null);
 
 export function BookingProvider({ children }: { children: ReactNode }) {
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleSlug | ''>('');
-  const vehicleFieldRef = useRef<HTMLSelectElement | null>(null);
+  const vehicleFieldRef = useRef<HTMLElement | null>(null);
 
-  const registerVehicleField = useCallback((element: HTMLSelectElement | null) => {
+  const registerVehicleField = useCallback((element: HTMLElement | null) => {
     vehicleFieldRef.current = element;
   }, []);
 

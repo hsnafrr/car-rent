@@ -11,10 +11,13 @@ const nextConfig = {
   // Static export keeps the site deployable to Netlify, Vercel, or any plain
   // static host. All imagery is pre-compressed by tools/build-assets.mjs, so the
   // Next image optimizer is not needed at runtime.
-  output: 'export',
   images: { unoptimized: true },
   reactStrictMode: true,
   trailingSlash: true,
+  // The admin dashboard is a prebuilt static app in public/admin.
+  async rewrites() {
+    return [{ source: '/admin/', destination: '/admin/index.html' }];
+  },
 };
 
 export default nextConfig;

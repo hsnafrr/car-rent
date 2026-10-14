@@ -31,6 +31,8 @@ export interface CompanyProfile {
    * elements on. Do not guess this value.
    */
   googleMapsUrl: string | null;
+  /** Apps Script web app: checks availability, writes Google Sheets, Calendar and Gmail. */
+  bookingAppUrl: string;
 }
 
 /** Language independent figures shown in the trust row. Labels live in src/i18n. */
@@ -67,13 +69,16 @@ export const company: CompanyProfile = {
   founder: 'Mr. Salim Jefry',
   founderRole: 'Founder and CEO',
   city: 'Yogyakarta, Indonesia',
-  whatsappPrimary: '6281804099113',
-  whatsappPrimaryDisplay: '0818-0409-9113',
-  whatsappAlternative: '6289620928296',
-  whatsappAlternativeDisplay: '0896-2092-8296',
+  whatsappPrimary: '6289620928296',
+  whatsappPrimaryDisplay: '0896-2092-8296',
+  // One line now. Leave both empty and the alternative line is hidden everywhere.
+  whatsappAlternative: '',
+  whatsappAlternativeDisplay: '',
   email: 'morfosatransport@gmail.com',
   instagram: 'morfosatransport',
   tiktok: 'morfosatransport',
   hours: 'Monday to Sunday, 24 hours',
   googleMapsUrl: null,
+  bookingAppUrl:
+    'https://script.google.com/macros/s/AKfycbwr2KyjKZNdX6Ii4WBQ0IExjDMR1SiGlkkzHJ9qglh-gwSTVSCsbTq3w42gaece-QAS/exec',
 };

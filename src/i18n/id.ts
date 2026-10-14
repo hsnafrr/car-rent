@@ -255,7 +255,7 @@ export const id: Dictionary = {
     eyebrow: 'Pemesanan',
     title: 'Kirim detail perjalanan Anda.',
     lede:
-      'Isi rencana perjalanan dan kami akan menyiapkan pesan WhatsApp berisi semua yang dibutuhkan tim kami. Tidak ada yang dipesan sampai Morfosa Transport membalas untuk memastikan ketersediaan.',
+      'Pilih tanggal dan kendaraan. Ketersediaan dicek otomatis dan tim kami langsung diberi tahu. Tidak ada yang dipesan sampai Morfosa Transport membalas di WhatsApp untuk mengonfirmasi.',
     primaryWhatsapp: 'WhatsApp utama',
     alternativeWhatsapp: 'WhatsApp alternatif',
     fieldName: 'Nama lengkap',

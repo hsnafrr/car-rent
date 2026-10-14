@@ -265,7 +265,7 @@ export const en = {
     eyebrow: 'Booking',
     title: 'Send your journey details.',
     lede:
-      'Fill in the trip and we will prepare a WhatsApp message with everything our team needs. Nothing is reserved until Morfosa Transport replies to confirm availability.',
+      'Choose your dates and vehicle. Availability is checked for you and our team is notified at once. Nothing is reserved until Morfosa Transport replies on WhatsApp to confirm.',
     primaryWhatsapp: 'Primary WhatsApp',
     alternativeWhatsapp: 'Alternative WhatsApp',
     fieldName: 'Full name',

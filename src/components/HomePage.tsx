@@ -8,6 +8,7 @@ import { Booking } from '@/components/Booking';
 import { Reviews } from '@/components/Reviews';
 import { Faq } from '@/components/Faq';
 import { Contact } from '@/components/Contact';
+import { ChatbotLoader } from '@/components/ChatbotLoader';
 import type { Locale } from '@/i18n';
 import type { Dictionary } from '@/i18n/types';
 
@@ -30,6 +31,7 @@ export function HomePage({ dict, locale }: { dict: Dictionary; locale: Locale })
       <Reviews dict={dict} locale={locale} />
       <Faq dict={dict} />
       <Contact dict={dict} />
+      <ChatbotLoader dict={dict} locale={locale} />
     </BookingProvider>
   );
 }

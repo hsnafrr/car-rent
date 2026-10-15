@@ -59,10 +59,10 @@ export function Chatbot({ dict, locale }: { dict: Dictionary; locale: Locale }) 
 
   const ctx = useMemo<BotContext>(
     () => ({
-      lang: locale,
+      lang: 'en',
       vehicles: fleet.map((item) => ({
         slug: item.slug,
-        name: dict.vehicles[item.slug].name,
+        name: dict.vehicles[item.slug].name.replace(/atau/g, 'or'),
         seats: item.seats,
         price: item.pricePerDay,
       })),
@@ -127,7 +127,7 @@ export function Chatbot({ dict, locale }: { dict: Dictionary; locale: Locale }) 
           // The engine is pure and tested, but a chat widget must never break the page.
           push({
             from: 'bot',
-            text: locale === 'id' ? 'Maaf, ada kendala. Silakan hubungi kami lewat WhatsApp.' : 'Sorry, something went wrong. Please reach us on WhatsApp.',
+            text: 'Sorry, something went wrong. Please reach us on WhatsApp.',
             actions: [{ type: 'whatsapp', label: `WhatsApp ${company.whatsappPrimaryDisplay}`, href: `https://wa.me/${company.whatsappPrimary}` }],
           });
         }
@@ -149,9 +149,7 @@ export function Chatbot({ dict, locale }: { dict: Dictionary; locale: Locale }) 
     else scrollToSection('booking');
   };
 
-  const t = locale === 'id'
-    ? { open: 'Buka asisten chat', close: 'Tutup chat', title: 'Asisten Morfosa', status: 'Balas instan', placeholder: 'Tulis pertanyaan Anda', send: 'Kirim', log: 'Percakapan' }
-    : { open: 'Open chat assistant', close: 'Close chat', title: 'Morfosa Assistant', status: 'Instant replies', placeholder: 'Type your question', send: 'Send', log: 'Conversation' };
+  const t = { open: 'Open chat assistant', close: 'Close chat', title: 'Morfosa Assistant', status: 'Instant replies', placeholder: 'Type your question', send: 'Send', log: 'Conversation' };
 
   const last = messages[messages.length - 1];
   const showChips = last && last.from === 'bot' && last.chips && !typing;

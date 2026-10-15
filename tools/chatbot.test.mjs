@@ -1,4 +1,4 @@
-// Run: node --test tools/chatbot.test.mjs
+// Run: node --test tools/chatbot.test.mjs   (the assistant is English only)
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { reply, greeting, normalize } from '../src/lib/chatbot/engine.ts';
@@ -11,61 +11,68 @@ const vehicles = [
   { slug: 'hiace-premio', name: 'Toyota Hiace Premio', seats: 14, price: 1500000 },
   { slug: 'grandmax-blindvan', name: 'Grandmax Blindvan', seats: 2, price: 550000 },
 ];
-const ctx = (lang = 'id') => ({ lang, vehicles, whatsapp: '6289620928296', whatsappDisplay: '0896-2092-8296', bookingUrl: 'https://morfosa-transport.vercel.app/#booking' });
-const ask = (q, lang) => reply(q, ctx(lang));
+const ctx = { lang: 'en', vehicles, whatsapp: '6289620928296', whatsappDisplay: '0896-2092-8296', bookingUrl: 'https://morfosa-transport.vercel.app/#booking' };
+const ask = (q) => reply(q, ctx);
 
-test('price keyword sends the price list', () => {
-  for (const q of ['harga', 'Harga sewa berapa?', 'price', 'PRICE LIST', 'tarif sewa', 'hrga', 'how much']) {
-    const r = ask(q, /price|how/i.test(q) ? 'en' : 'id');
+test('price keywords send the price list', () => {
+  for (const q of ['price', 'prices', 'Price list', 'PRICING', 'how much', 'rates', 'cost', 'cheapest', 'prise']) {
+    const r = ask(q);
     assert.ok(r.intents.includes('price'), q + ' -> ' + r.intents);
     assert.match(r.text, /Rp550\.000/, q);
+    assert.match(r.text, /Daily rental prices/);
   }
 });
 
-test('booking keyword sends the booking link', () => {
-  for (const q of ['booking', 'mau booking', 'cara pesan', 'link booking', 'book', 'Mau sewa dong', 'how to book', 'reservasi']) {
-    const r = ask(q, /how|^book$/i.test(q) ? 'en' : 'id');
+test('booking keywords send the booking link', () => {
+  for (const q of ['booking', 'book', 'I want to book', 'booking link', 'how to book', 'reserve', 'I want to rent a car', 'booking form']) {
+    const r = ask(q);
     assert.ok(r.intents.includes('booking'), q + ' -> ' + r.intents);
     assert.match(r.text, /https:\/\/morfosa-transport\.vercel\.app\/#booking/, q);
     assert.ok(r.actions.some((a) => a.type === 'book'), q);
   }
 });
 
-test('"harga sewa" is price only, not booking', () => {
-  assert.deepEqual(ask('harga sewa').intents, ['price']);
+test('"rental price" is price only', () => {
+  assert.deepEqual(ask('rental price').intents, ['price']);
 });
 
 test('price and booking in one message answers both', () => {
-  const r = ask('harga dan cara booking');
+  const r = ask('price and how to book');
   assert.ok(r.intents.includes('price') && r.intents.includes('booking'));
   assert.match(r.text, /Rp/); assert.match(r.text, /#booking/);
 });
 
-test('vehicle name alone shows its price and preselects it on booking', () => {
+test('vehicle name alone shows its price, booking preselects it', () => {
   const r = ask('innova');
   assert.deepEqual(r.intents, ['price']); assert.match(r.text, /850\.000/); assert.doesNotMatch(r.text, /1\.200\.000/);
-  const b = ask('booking innova');
-  assert.ok(b.actions.some((a) => a.type === 'book' && a.vehicle === 'innova-reborn'));
+  assert.ok(ask('book the innova').actions.some((a) => a.type === 'book' && a.vehicle === 'innova-reborn'));
 });
 
 test('passenger count recommends the smallest fitting vehicle', () => {
-  assert.match(ask('untuk 5 orang').text, /Agya/);
-  assert.match(ask('6 orang').text, /Avanza/);
-  assert.match(ask('10 orang').text, /Commuter/);
-  assert.match(ask('20 orang').text, /dua kendaraan/);
-  assert.match(ask('for 12 people', 'en').text, /Commuter/);
+  assert.match(ask('for 5 people').text, /Agya/);
+  assert.match(ask('6 passengers').text, /Avanza/);
+  assert.match(ask('10 people').text, /Commuter/);
+  assert.match(ask('20 people').text, /two vehicles/);
 });
 
 test('other topics', () => {
-  const cases = [['bayar pakai apa', 'payment'], ['ada asuransi?', 'insurance'], ['biaya luar kota', 'outoftown'], ['jemput di bandara', 'pickup'],
-    ['jam buka', 'hours'], ['nomor wa', 'contact'], ['alamat kantor', 'location'], ['batal booking', 'cancel'], ['sudah termasuk sopir?', 'included'],
-    ['armada apa saja', 'fleet'], ['halo', 'greeting'], ['makasih', 'thanks']];
+  const cases = [['how do I pay', 'payment'], ['is there insurance', 'insurance'], ['out of town extra charge', 'outoftown'], ['airport pickup', 'pickup'],
+    ['opening hours', 'hours'], ['whatsapp number', 'contact'], ['where is your office', 'location'], ['cancel my booking', 'cancel'], ['is the driver included', 'included'],
+    ['what vehicles do you have', 'fleet'], ['hello', 'greeting'], ['thanks', 'thanks'], ['about the company', 'about'], ['minimum rental period', 'minimum']];
   for (const [q, intent] of cases) assert.ok(ask(q).intents.includes(intent), q + ' -> ' + ask(q).intents);
 });
 
-test('english answers are english', () => {
-  assert.match(ask('prices', 'en').text, /Daily rental prices/);
-  assert.match(ask('booking', 'en').text, /Great!/);
+test('every answer is English', () => {
+  const indo = /\b(harga|sewa|silakan|terima kasih|halo|kami|pesan|bayar)\b/i;
+  for (const q of ['price', 'book', 'hello', 'insurance', 'xyzzy', 'fleet', 'pay', 'contact', 'for 5 people']) {
+    const r = ask(q);
+    assert.doesNotMatch(r.text, indo, q); r.chips.forEach((c) => assert.doesNotMatch(c, indo, c));
+  }
+});
+
+test('Indonesian words are not keywords anymore', () => {
+  assert.deepEqual(ask('harga').intents, ['fallback']);
+  assert.deepEqual(ask('pesan').intents, ['fallback']);
 });
 
 test('booking id goes to WhatsApp', () => {
@@ -75,18 +82,18 @@ test('booking id goes to WhatsApp', () => {
 
 test('unknown, empty and hostile input never throws', () => {
   for (const q of ['', '   ', 'asdfghjkl', '<script>alert(1)</script>', '\u0000\u0001', 'a'.repeat(5000), '😀😀', null, undefined, 123, '%%%%', '{{7*7}}']) {
-    const r = reply(q, ctx());
+    const r = reply(q, ctx);
     assert.equal(typeof r.text, 'string'); assert.ok(r.text.length > 0); assert.ok(Array.isArray(r.actions)); assert.ok(Array.isArray(r.chips));
   }
   assert.deepEqual(ask('asdfghjkl').intents, ['fallback']);
 });
 
-test('greeting message exists in both languages and normalize strips accents', () => {
-  assert.match(greeting(ctx('id')).text, /Halo/); assert.match(greeting(ctx('en')).text, /Hello/);
+test('greeting and normalize', () => {
+  assert.match(greeting(ctx).text, /Hello/);
   assert.equal(normalize('Héllo,  WORLD!').trim(), 'hello world');
 });
 
-test('every price reply stays consistent with the vehicle data', () => {
-  const r = ask('harga');
+test('price reply matches the vehicle data', () => {
+  const r = ask('price');
   for (const v of vehicles) assert.ok(r.text.includes(v.price.toLocaleString('id-ID')), v.name);
 });

@@ -97,7 +97,7 @@ const INTENTS: Intent[] = [
     weight: 5,
     keywords: {
       id: ['harga', 'tarif', 'biaya', 'price', 'pricelist', 'price list', 'rate', 'ongkos', 'murah', 'termurah', 'cost'],
-      en: ['price', 'prices', 'pricing', 'pricelist', 'price list', 'rate', 'rates', 'cost', 'how much', 'tariff', 'cheap', 'cheapest', 'fee', 'harga', 'tarif'],
+      en: ['price', 'prices', 'pricing', 'pricelist', 'price list', 'rate', 'rates', 'cost', 'how much', 'tariff', 'cheap', 'cheapest', 'fee'],
     },
   },
   {
@@ -105,7 +105,7 @@ const INTENTS: Intent[] = [
     weight: 6,
     keywords: {
       id: ['booking', 'book', 'pesan', 'pesanan', 'pemesanan', 'order', 'reservasi', 'reserve', 'mau sewa', 'mau rental', 'ingin sewa', 'daftar', 'form', 'formulir', 'link booking', 'cara pesan', 'cara booking', 'cara sewa', 'link'],
-      en: ['booking', 'book', 'reserve', 'reservation', 'order', 'want to rent', 'form', 'link', 'how to book', 'how to rent', 'sign up', 'booking link', 'booking form', 'pesan', 'i want to rent', 'want to rent'],
+      en: ['booking', 'book', 'reserve', 'reservation', 'order', 'want to rent', 'form', 'link', 'how to book', 'how to rent', 'sign up', 'booking link', 'booking form', 'i want to rent', 'want to rent'],
     },
   },
   {
@@ -113,7 +113,7 @@ const INTENTS: Intent[] = [
     weight: 3,
     keywords: {
       id: ['armada', 'mobil', 'kendaraan', 'unit', 'tipe', 'jenis', 'pilihan', 'fleet', 'list mobil', 'daftar mobil', 'apa saja'],
-      en: ['fleet', 'cars', 'car', 'vehicles', 'vehicle', 'types', 'options', 'models', 'available', 'what do you have', 'armada', 'mobil'],
+      en: ['fleet', 'cars', 'car', 'vehicles', 'vehicle', 'types', 'options', 'models', 'available', 'what do you have'],
     },
   },
   {
@@ -121,7 +121,7 @@ const INTENTS: Intent[] = [
     weight: 4,
     keywords: {
       id: ['sopir', 'supir', 'driver', 'bbm', 'bensin', 'bahan bakar', 'solar', 'termasuk', 'include', 'lepas kunci', 'tanpa sopir', 'self drive', 'selfdrive'],
-      en: ['driver', 'fuel', 'petrol', 'gas', 'included', 'include', 'includes', 'self drive', 'selfdrive', 'without driver', 'sopir', 'bbm'],
+      en: ['driver', 'fuel', 'petrol', 'gas', 'included', 'include', 'includes', 'self drive', 'selfdrive', 'without driver'],
     },
   },
   {
@@ -137,7 +137,7 @@ const INTENTS: Intent[] = [
     weight: 4,
     keywords: {
       id: ['asuransi', 'insurance', 'kecelakaan', 'garansi', 'jaminan', 'klaim'],
-      en: ['insurance', 'insured', 'accident', 'warranty', 'guarantee', 'claim', 'asuransi'],
+      en: ['insurance', 'insured', 'accident', 'warranty', 'guarantee', 'claim'],
     },
   },
   {
@@ -153,7 +153,7 @@ const INTENTS: Intent[] = [
     weight: 4,
     keywords: {
       id: ['jemput', 'penjemputan', 'antar', 'pengantaran', 'bandara', 'yia', 'stasiun', 'hotel', 'airport', 'lokasi jemput', 'drop off', 'dropoff'],
-      en: ['pickup', 'pick up', 'drop off', 'dropoff', 'airport', 'station', 'hotel', 'transfer', 'jemput', 'bandara'],
+      en: ['pickup', 'pick up', 'drop off', 'dropoff', 'airport', 'station', 'hotel', 'transfer', 'yia'],
     },
   },
   {
@@ -169,7 +169,7 @@ const INTENTS: Intent[] = [
     weight: 4,
     keywords: {
       id: ['batal', 'pembatalan', 'cancel', 'refund', 'kembali uang', 'ubah jadwal', 'reschedule', 'ganti tanggal', 'perpanjang', 'extend'],
-      en: ['cancel', 'cancellation', 'refund', 'reschedule', 'change date', 'change booking', 'extend', 'batal'],
+      en: ['cancel', 'cancellation', 'refund', 'reschedule', 'change date', 'change booking', 'extend'],
     },
   },
   {
@@ -209,7 +209,7 @@ const INTENTS: Intent[] = [
     weight: 1,
     keywords: {
       id: ['halo', 'hai', 'hi', 'hello', 'selamat pagi', 'selamat siang', 'selamat sore', 'selamat malam', 'pagi', 'siang', 'sore', 'permisi', 'assalamualaikum', 'salam', 'p', 'tes', 'test', 'bantuan', 'help', 'tolong', 'menu'],
-      en: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening', 'help', 'menu', 'start', 'test', 'halo', 'hai'],
+      en: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening', 'help', 'menu', 'start', 'test'],
     },
   },
   {
@@ -217,7 +217,7 @@ const INTENTS: Intent[] = [
     weight: 1,
     keywords: {
       id: ['terima kasih', 'makasih', 'thanks', 'thank you', 'thx', 'oke', 'ok', 'siap', 'sip', 'mantap', 'baik', 'sama sama'],
-      en: ['thanks', 'thank you', 'thx', 'ok', 'okay', 'great', 'nice', 'cool', 'got it', 'terima kasih'],
+      en: ['thanks', 'thank you', 'thx', 'ok', 'okay', 'great', 'nice', 'cool', 'got it'],
     },
   },
 ];
